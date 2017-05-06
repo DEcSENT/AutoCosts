@@ -5,4 +5,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="empty_history_text">Нет записей в истории</string>
+    <string name="empty_history_start">Начните с добавления новой записи</string>
+    <string name="cost_type">Тип расхода</string>
+    <string name="date">Дата</string>
+    <string name="mileage">Текущий пробег</string>
+    <string name="cost_value">Сумма расхода</string>
+    <string name="cost_volume">Объем</string>
+    <string name="comment">Комментарий</string>
+    <string name="photo">Фотография</string>
+
+    <string name="add">Добавить</string>
+    <string name="safe">Сохранить</string>
 </resources>

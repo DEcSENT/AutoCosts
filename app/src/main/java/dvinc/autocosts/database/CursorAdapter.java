@@ -6,7 +6,8 @@ package dvinc.autocosts.database;
  */
 
 /**
- * TODO: Класс для курсор-адаптера
+ * TODO
  */
 public class CursorAdapter {
+    
 }

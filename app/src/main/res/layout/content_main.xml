@@ -13,8 +13,33 @@
     tools:context="dvinc.autocosts.activities.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
+    <ListView
+        android:id="@+id/list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_height="match_parent" />
+
+    <!-- Empty view for the list -->
+    <RelativeLayout
+        android:id="@+id/empty_view"
+        style="@style/History_Elements_Style"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/empty_title_text"
+            style="@style/History_Elements_Style"
+            android:fontFamily="sans-serif-medium"
+            android:paddingTop="16dp"
+            android:text="@string/empty_history_text"
+            android:textAppearance="?android:textAppearance" />
+
+        <TextView
+            android:id="@+id/empty_subtitle_text"
+            style="@style/History_Elements_Style"
+            android:layout_below="@+id/empty_title_text"
+            android:fontFamily="sans-serif"
+            android:paddingTop="8dp"
+            android:text="@string/empty_history_start"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="#A2AAB0" />
+    </RelativeLayout>
 </RelativeLayout>
