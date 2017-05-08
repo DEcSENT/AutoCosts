@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add"
-            android:id="@+id/loadimage"
+            android:id="@+id/buttonLoadPhoto"
             android:onClick="loadImageClick"/>
     </LinearLayout>
 
@@ -117,7 +117,7 @@
             android:contentDescription="@string/photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageViewLoad"
+            android:id="@+id/imageViewPhotoLoad"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"/>
     </FrameLayout>
@@ -126,7 +126,7 @@
             android:text="@string/safe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/webButton"
+            android:id="@+id/buttonSaveEntry"
             android:onClick="onClickSafe"
             android:background="@color/colorAccent"
             android:layout_marginTop="20dp"

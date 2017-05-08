@@ -1,10 +1,13 @@
 package dvinc.autocosts.activities;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +20,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import dvinc.autocosts.R;
+import dvinc.autocosts.database.Contract.*;
+import dvinc.autocosts.database.HistoryCursorAdapter;
 
 /**
  * Created by DV on Space 5
@@ -28,7 +33,10 @@ import dvinc.autocosts.R;
  * TODO: Будет содержать в себе: список со всеми записями через контент-провайдер, возможность редактирования у даления записей
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final int LOADER = 0;
+    HistoryCursorAdapter historyCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +64,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         ListView listView = (ListView) findViewById(R.id.list);
         View emptyView = findViewById(R.id.empty_view);
         listView.setEmptyView(emptyView);
+        historyCursorAdapter = new HistoryCursorAdapter(this, null);
+        listView.setAdapter(historyCursorAdapter);
+
+        getLoaderManager().initLoader(LOADER, null, this);
     }
 
     @Override
@@ -100,22 +111,46 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_main) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_stat) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_info) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        // Зададим нужные колонки
+        String[] projection = {
+                CostEntry._ID,
+                CostEntry.COLUMN_COST_TYPE,
+                CostEntry.COLUMN_DATE
+                };
+
+        // Загрузчик запускает запрос ContentProvider в фоновом потоке
+        return new CursorLoader(this,
+                CostEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Обновляем CursorAdapter новым курсором, которые содержит обновленные данные
+        historyCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // Освобождаем ресурсы
+        historyCursorAdapter.swapCursor(null);
     }
 }

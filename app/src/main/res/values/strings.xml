@@ -17,4 +17,24 @@
 
     <string name="add">Добавить</string>
     <string name="safe">Сохранить</string>
+
+    <string name="nav_main_title">История</string>
+    <string name="nav_stat_title">Статистика</string>
+    <string name="nav_info_title">О приложении</string>
+
+    <string name="editor_title_new">Новая запись</string>
+    <string name="editor_title_edit_current">Редактирование записи</string>
+    
+    <string name="costType_none">Не выбрано</string>
+    <string name="costType_oil">Заправка</string>
+    <string name="costType_service">Сервис</string>
+    <string name="costType_TI">ТО</string>
+    <string name="costType_other">Разное</string>
+
+    <string name="editor_insert_entry_failed">Неудачное сохранение</string>
+    <string name="editor_insert_entry_successful">Запись сохранена</string>
+    <string name="editor_update_entry_failed">Неудачное редактирование</string>
+    <string name="editor_update_entry_successful">Запись отредактированна</string>
+
+
 </resources>

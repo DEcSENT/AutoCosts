@@ -14,15 +14,18 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.CreateActivity"
-            android:parentActivityName="activities.MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <provider
+            android:name=".database.ContentProvider"
+            android:authorities="dvinc.autocosts"
+            android:exported="false" /> <!-- Показывает видимость контент-провайдера другим апп-->
     </application>
 
 </manifest>
