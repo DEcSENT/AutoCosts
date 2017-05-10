@@ -39,19 +39,22 @@ public class HistoryCursorAdapter extends CursorAdapter {
         // Находим поля, в которые будем подставлять свои данные в списке
         TextView costTypeTextView = (TextView) view.findViewById(R.id.listCostType);
         TextView dateTextView = (TextView) view.findViewById(R.id.listDate);
+        TextView costTextView = (TextView) view.findViewById(R.id.listCostValue);
         if (cursor != null) {
             // Находим индексы столбцов в курсоре
             int costTypeIndex = cursor.getColumnIndex(COLUMN_COST_TYPE);
             int dateIndex = cursor.getColumnIndex(COLUMN_DATE);
+            int costIndex = cursor.getColumnIndex(COLUMN_COST_VALUE);
 
             // Читаем данные из курсора для текущей записи
             String costType = cursor.getString(costTypeIndex);
             String date = cursor.getString(dateIndex);
+            String cost = cursor.getString(costIndex);
 
             // Обновляем текстовые поля, подставляя в них данные для текущей записи
             costTypeTextView.setText(costType);
             dateTextView.setText(date);
+            costTextView.setText(cost);
         }
     }
-    
 }

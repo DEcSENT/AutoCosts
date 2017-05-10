@@ -130,7 +130,8 @@ public class MainActivity extends AppCompatActivity
         String[] projection = {
                 CostEntry._ID,
                 CostEntry.COLUMN_COST_TYPE,
-                CostEntry.COLUMN_DATE
+                CostEntry.COLUMN_DATE,
+                CostEntry.COLUMN_COST_VALUE
                 };
 
         // Загрузчик запускает запрос ContentProvider в фоновом потоке
