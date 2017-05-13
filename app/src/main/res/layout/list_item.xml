@@ -8,30 +8,31 @@
 
     <TextView
         android:id="@+id/listCostType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ListView_Elements_Style"
         android:fontFamily="sans-serif-medium"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D"  />
-
+        android:textAppearance="?android:textAppearanceMedium" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <TextView
+            style="@style/ListView_Elements_Style"
+            android:text="@string/date_textview"
+            android:layout_weight="1"/>
     <TextView
         android:id="@+id/listDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ListView_Elements_Style"
         android:fontFamily="sans-serif"
-        android:textAppearance="?android:textAppearanceSmall"
         android:textColor="#AEB6BD"
         android:layout_weight="1"/>
         <TextView
+            style="@style/ListView_Elements_Style"
+            android:text="@string/costValue_textview"
+            android:layout_weight="1"/>
+        <TextView
             android:id="@+id/listCostValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ListView_Elements_Style"
             android:fontFamily="sans-serif"
-            android:textAppearance="?android:textAppearanceSmall"
             android:textColor="#AEB6BD"
             android:layout_weight="1"/>
     </LinearLayout>

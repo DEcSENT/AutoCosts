@@ -8,7 +8,7 @@
     <string name="empty_history_text">Нет записей в истории</string>
     <string name="empty_history_start">Начните с добавления новой записи</string>
     <string name="cost_type">Тип расхода</string>
-    <string name="date">Дата</string>
+    <string name="date">Дата </string>
     <string name="mileage">Текущий пробег</string>
     <string name="cost_value">Сумма расхода</string>
     <string name="cost_volume">Объем</string>
@@ -36,5 +36,6 @@
     <string name="editor_update_entry_failed">Неудачное редактирование</string>
     <string name="editor_update_entry_successful">Запись отредактированна</string>
 
-
+    <string name="date_textview">"Дата "</string>
+    <string name="costValue_textview">"Потрачено "</string>
 </resources>

@@ -141,7 +141,6 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
         // Устанавливаем спиннер для выбора типа расхода.
         setupCostTypeSpinner();
 
-
     }
 
     /**
@@ -168,7 +167,7 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     /**
-     * Метод для охранения пользовательской информации в базу данных.
+     * Метод для сохранения пользовательской информации в базу данных.
      */
     private void saveEntry(){
         /* Получаем данные пользоваеля.*/

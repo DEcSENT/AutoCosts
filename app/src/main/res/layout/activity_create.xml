@@ -5,13 +5,10 @@
     android:padding="@dimen/activity_margin">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/LL_horizontal"
         android:orientation="vertical">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
             android:text="@string/cost_type"/>
@@ -23,12 +20,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
-            android:text="@string/date"/>
+            android:text="@string/date" />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -37,9 +32,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
             android:text="@string/mileage"/>
@@ -47,13 +40,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/editMileage"
-            android:hint="@string/mileage"/>
+            android:hint="@string/mileage"
+            android:inputType="number"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
             android:text="@string/cost_value"/>
@@ -61,27 +53,25 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/editCostValue"
-            android:hint="@string/cost_value"/>
+            android:hint="@string/cost_value"
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
             android:text="@string/cost_volume"/>
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/editCostVolume"
-            android:hint="@string/cost_volume"/>
+            android:hint="@string/cost_volume"
+            android:inputType="number"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
             android:text="@string/comment"/>
@@ -93,9 +83,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
             android:text="@string/photo"/>
@@ -106,7 +94,6 @@
             android:id="@+id/buttonLoadPhoto"
             android:onClick="loadImageClick"/>
     </LinearLayout>
-
 
     <FrameLayout
         android:orientation="vertical"
