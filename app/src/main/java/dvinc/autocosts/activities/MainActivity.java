@@ -1,5 +1,7 @@
 package dvinc.autocosts.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import dvinc.autocosts.R;
 import dvinc.autocosts.database.Contract.*;
@@ -92,17 +95,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_delete_all_history:
+                showDeleteConfirmationDialog();
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -153,5 +151,37 @@ public class MainActivity extends AppCompatActivity
     public void onLoaderReset(Loader<Cursor> loader) {
         // Освобождаем ресурсы
         historyCursorAdapter.swapCursor(null);
+    }
+
+    /**
+     * Предупреждающий диалог для удаления всех записей из истории.
+     */
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete_history_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteAllHistory();
+            }
+        });
+        builder.setNegativeButton(R.string.delete_history_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Метод для удаления всех записей из истории.
+     */
+    private void deleteAllHistory() {
+        int rowsDeleted = getContentResolver().delete(CostEntry.CONTENT_URI, null, null);
+        Toast.makeText(this, "Удалено записей из истории: " +
+                rowsDeleted, Toast.LENGTH_LONG)
+                .show();
     }
 }
