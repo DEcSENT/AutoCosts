@@ -47,7 +47,7 @@ public final class Contract {
 
         /* Переменные для создания базы данных.*/
         final static String TABLE_NAME = "costsHistory";
-        final static String COLUMN_ID = BaseColumns._ID;
+        public final static String COLUMN_ID = BaseColumns._ID;
         public final static String COLUMN_COST_TYPE = "costType";
         public final static String COLUMN_DATE = "date";
         public final static String COLUMN_MILEAGE = "mileage";
@@ -55,5 +55,10 @@ public final class Contract {
         public final static String COLUMN_COST_VOLUME = "costVolume";
         public final static String COLUMN_COMMENT = "comment";
         public final static String COLUMN_PHOTO = "photo";
+
+        public static final String COST_TYPE_FUEL = "Заправка";
+        public static final String COST_TYPE_SERVICE = "Сервис";
+        public static final String COST_TYPE_TO = "ТО";
+        public static final String COST_TYPE_OTHER = "Разное";
     }
 }

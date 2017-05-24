@@ -43,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/text_color"
+                android:gravity="bottom"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:textAppearance="?android:textAppearanceMedium" />
@@ -51,6 +52,7 @@
                 android:id="@+id/listDate"
                 style="@style/ListView_Elements_Style"
                 android:layout_weight="1"
+                android:gravity="bottom"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/colorSmallText" />
         </LinearLayout>

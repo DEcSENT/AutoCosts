@@ -5,19 +5,26 @@ package dvinc.autocosts.activities;
  * 28.04.2017
  */
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,6 +41,8 @@ import java.io.IOException;
 
 import dvinc.autocosts.R;
 import dvinc.autocosts.database.Contract.*;
+
+import static dvinc.autocosts.database.Contract.CostEntry.*;
 
 /**
  * Класс для создания записи по расходам на авто
@@ -54,6 +64,8 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mCostVolumeEditText;
     private EditText mCommentEditText;
     private ImageView mPhotoImageView;
+
+    private LinearLayout mLLcostVolume;
     
     /** Переменная для хранения выранной категории.*/
     private String mCostType;
@@ -99,9 +111,11 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
         mCommentEditText = (EditText) findViewById(R.id.editComment);
         mPhotoImageView = (ImageView) findViewById(R.id.imageViewPhotoLoad);
 
+        mLLcostVolume = (LinearLayout) findViewById(R.id.LL_cost_volume);
+
         /* По умолчанию прячем поле ввода для объема.*/
-        mCostVolumeEditText.setVisibility(View.INVISIBLE);
-        mCostVolumeEditText.setVisibility(View.GONE);
+        mLLcostVolume.setVisibility(View.INVISIBLE);
+        mLLcostVolume.setVisibility(View.GONE);
 
         /*Инициализация кнопок.*/
         mButtonLoadPhoto = (Button) findViewById(R.id.buttonLoadPhoto);
@@ -116,7 +130,6 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
         // Если интенте содержит в себе URI, то редактируем запись по текущему URI.
         if (mCurrentEntryUri == null) {
             setTitle(getString(R.string.editor_title_new));
-
             // Прячем меню для новой записи (возможность удаления новой записи не нужна).
             invalidateOptionsMenu();
         } else {
@@ -140,7 +153,6 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
 
         // Устанавливаем спиннер для выбора типа расхода.
         setupCostTypeSpinner();
-
     }
 
     /**
@@ -235,13 +247,173 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create, menu);
+        return true;
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (mCurrentEntryUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+        }
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                showDeleteConfirmationDialog();
+                return true;
+            case android.R.id.home:
+                if (!mEntryHasChanged) {
+                    NavUtils.navigateUpFromSameTask(CreateActivity.this);
+                    return true;
+                }
+                DialogInterface.OnClickListener discardButtonClickListener =
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // User clicked "Discard" button, navigate to parent activity.
+                                NavUtils.navigateUpFromSameTask(CreateActivity.this);
+                            }
+                        };
 
+                showUnsavedChangesDialog(discardButtonClickListener);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Предупреждающий диалог для удаления записи из истории.
+     */
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg2);
+        builder.setPositiveButton(R.string.delete_history_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteCurrentEntry();
+            }
+        });
+        builder.setNegativeButton(R.string.delete_history_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Удаление текущей записи из истории.
+     */
+    private void deleteCurrentEntry() {
+        if (mCurrentEntryUri != null) {
+            int rowsDeleted = getContentResolver().delete(mCurrentEntryUri, null, null);
+            if (rowsDeleted == 0) {
+                Toast.makeText(this, getString(R.string.editor_delete_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.editor_delete_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+        finish();
+    }
+
+    /**
+     * Предупреждающий о несохраненных изменениях диалог.
+     */
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.delete_history_yes, discardButtonClickListener);
+        builder.setNegativeButton(R.string.delete_history_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = {
+                CostEntry.COLUMN_ID,
+                CostEntry.COLUMN_COST_TYPE,
+                CostEntry.COLUMN_DATE,
+                CostEntry.COLUMN_MILEAGE,
+                CostEntry.COLUMN_COST_VALUE,
+                CostEntry.COLUMN_COST_VOLUME,
+                CostEntry.COLUMN_COMMENT,
+                CostEntry.COLUMN_PHOTO};
+
+        return new CursorLoader(this,
+                mCurrentEntryUri,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+        if (cursor.moveToFirst()) {
+            int costTypeIndex = cursor.getColumnIndex(COLUMN_COST_TYPE);
+            int dateIndex = cursor.getColumnIndex(COLUMN_DATE);
+            int mileageIndex = cursor.getColumnIndex(COLUMN_MILEAGE);
+            int valueIndex = cursor.getColumnIndex(COLUMN_COST_VALUE);
+            int volumeIndex = cursor.getColumnIndex(COLUMN_COST_VOLUME);
+            int commentIndex = cursor.getColumnIndex(COLUMN_COMMENT);
+            int photoIndex = cursor.getColumnIndex(COLUMN_PHOTO);
+
+            String costType = cursor.getString(costTypeIndex);
+            String date = cursor.getString(dateIndex);
+            String mileage = cursor.getString(mileageIndex);
+            String value = cursor.getString(valueIndex);
+            String volume = cursor.getString(volumeIndex);
+            String comment = cursor.getString(commentIndex);
+            String photo = cursor.getString(photoIndex);
+
+            switch (costType){
+                case COST_TYPE_FUEL:
+                    mCostTypeSpinner.setSelection(1);
+                    break;
+                case COST_TYPE_SERVICE:
+                    mCostTypeSpinner.setSelection(2);
+                    break;
+                case COST_TYPE_TO:
+                    mCostTypeSpinner.setSelection(3);
+                    break;
+                case COST_TYPE_OTHER:
+                    mCostTypeSpinner.setSelection(4);
+                    break;
+                default: mCostTypeSpinner.setSelection(0);
+            }
+            mDateEditText.setText(date);
+            mMileageEditText.setText(mileage);
+            mCostValueEditText.setText(value);
+            mCostVolumeEditText.setText(volume);
+            mCommentEditText.setText(comment);
+
+            if (photo != null) {
+                byte[] decodedString = Base64.decode(photo, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                mPhotoImageView.setImageBitmap(decodedByte);
+            }
+        }
     }
 
     @Override

@@ -59,7 +59,8 @@
     </LinearLayout>
 
     <LinearLayout
-        style="@style/LL_horizontal">
+        style="@style/LL_horizontal"
+        android:id="@+id/LL_cost_volume">
         <TextView
             style="@style/Create_Activity_Elements"
             android:text="@string/cost_volume"/>

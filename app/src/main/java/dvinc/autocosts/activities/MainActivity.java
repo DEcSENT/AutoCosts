@@ -1,9 +1,11 @@
 package dvinc.autocosts.activities;
 
 import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -72,6 +75,17 @@ public class MainActivity extends AppCompatActivity
         listView.setEmptyView(emptyView);
         historyCursorAdapter = new HistoryCursorAdapter(this, null);
         listView.setAdapter(historyCursorAdapter);
+
+        /* Установка слушателя для нажатия на выбранную запись с последующим переходом в активность для редактирования.*/
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, CreateActivity.class);
+                Uri currentCostUri = ContentUris.withAppendedId(CostEntry.CONTENT_URI, id);
+                intent.setData(currentCostUri);
+                startActivity(intent);
+            }
+        });
 
         getLoaderManager().initLoader(LOADER, null, this);
     }

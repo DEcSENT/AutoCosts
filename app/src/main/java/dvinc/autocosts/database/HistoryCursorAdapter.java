@@ -68,10 +68,10 @@ public class HistoryCursorAdapter extends CursorAdapter {
 
             //Устанавливаем иконку в соответствии с типом записи
             switch (costType){
-                case "Заправка": imageViewType.setBackgroundResource(R.drawable.car_fuel); break;
-                case "Сервис": imageViewType.setBackgroundResource(R.drawable.car_service); break;
-                case "ТО": imageViewType.setBackgroundResource(R.drawable.car_to); break;
-                case "Разное": imageViewType.setBackgroundResource(R.drawable.car_other); break;
+                case COST_TYPE_FUEL: imageViewType.setBackgroundResource(R.drawable.car_fuel); break;
+                case COST_TYPE_SERVICE: imageViewType.setBackgroundResource(R.drawable.car_service); break;
+                case COST_TYPE_TO: imageViewType.setBackgroundResource(R.drawable.car_to); break;
+                case COST_TYPE_OTHER: imageViewType.setBackgroundResource(R.drawable.car_other); break;
             }
         }
     }
@@ -79,10 +79,10 @@ public class HistoryCursorAdapter extends CursorAdapter {
     private int setCircleColor(String str){
         int color;
         switch (str){
-            case "Заправка": color = R.color.colorFuel; break;
-            case "Сервис": color = R.color.colorService; break;
-            case "ТО": color = R.color.colorTO; break;
-            case "Разное": color = R.color.colorOther; break;
+            case COST_TYPE_FUEL: color = R.color.colorFuel; break;
+            case COST_TYPE_SERVICE: color = R.color.colorService; break;
+            case COST_TYPE_TO: color = R.color.colorTO; break;
+            case COST_TYPE_OTHER: color = R.color.colorOther; break;
             default: color = R.color.colorDefault;
         }
         return ContextCompat.getColor(context, color);
