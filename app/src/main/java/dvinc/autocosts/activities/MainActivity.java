@@ -26,14 +26,13 @@ import dvinc.autocosts.R;
 import dvinc.autocosts.database.Contract.*;
 import dvinc.autocosts.database.HistoryCursorAdapter;
 
-/**
+/*
  * Created by DV on Space 5
  * 28.04.2017
  */
 
 /**
- * TODO: Класс главной активности. Содержит в себе меню навигации, фаб кнопку.
- * TODO: Будет содержать в себе: список со всеми записями через контент-провайдер, возможность редактирования у даления записей
+ * Класс главной активности. Содержит в себе меню навигации, фаб кнопку, список со всеми записями.
  */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(R.string.nav_main_title);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -106,17 +106,14 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_main) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_stat) {
 
         } else if (id == R.id.nav_info) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

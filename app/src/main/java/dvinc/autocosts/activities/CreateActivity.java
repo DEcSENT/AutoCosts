@@ -1,6 +1,6 @@
 package dvinc.autocosts.activities;
 
-/**
+/*
  * Created by DV on Space 5
  * 28.04.2017
  */
@@ -35,8 +35,8 @@ import dvinc.autocosts.R;
 import dvinc.autocosts.database.Contract.*;
 
 /**
- * TODO: Класс для создания записи по расходам на авто
- * TODO: Сделать форму, выбор категорий, вставку фото и комментариев. Так же дополнительно подумать что нужно, а что не нужно знать при записи данных и внести правки в шаблон
+ * Класс для создания записи по расходам на авто
+ * TODO: Дополнительно подумать что нужно, а что не нужно знать при записи данных и внести правки в шаблон
  */
 public class CreateActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -126,7 +126,7 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
         }
 
         // Устанавливаем OnTouchListener для всех полей ввода пользовательской информации, чтобы опеределить
-        // прикасался ли к ним или изменял ли их пользователь. Это нужно, чтобы нельзя было покинуть активность, если
+        // прикасался ли к ним или изменял ли их пользователь. Это нужно для того, чтобы нельзя было покинуть активность, если
         // имеются несохраненные данные.
         mCostTypeSpinner.setOnTouchListener(mTouchListener);
         mDateEditText.setOnTouchListener(mTouchListener);
@@ -281,8 +281,8 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
 
     /**
      * Метод для изменения размера изображения.
-     * @param image - изображение
-     * @param maxSize - новый размер
+     * @param image - изображение;
+     * @param maxSize - новый размер;
      * @return - возвращает сжатое до нужных размеров изображение.
      */
     public static Bitmap getResizedBitmap(Bitmap image, int maxSize) {

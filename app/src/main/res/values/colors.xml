@@ -11,4 +11,6 @@
     <color name="colorService">#22ba00</color>
     <color name="colorTO">#ca00ca</color>
     <color name="colorOther">#ff7300</color>
+
+    <color name="colorSmallText">#696969</color>
 </resources>

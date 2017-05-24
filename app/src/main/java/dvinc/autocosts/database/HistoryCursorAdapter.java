@@ -1,6 +1,6 @@
 package dvinc.autocosts.database;
 
-/**
+/*
  * Created by DV on Space 5
  * 28.04.2017
  */
@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import dvinc.autocosts.R;
@@ -46,6 +48,7 @@ public class HistoryCursorAdapter extends CursorAdapter {
         TextView costTextView = (TextView) view.findViewById(R.id.listCostValue);
         TextView colorCircle = (TextView) view.findViewById(R.id.colorCircle);
         GradientDrawable listCircle = (GradientDrawable) colorCircle.getBackground();
+        ImageView imageViewType = (ImageView) view.findViewById(R.id.imageViewType);
         if (cursor != null) {
             // Находим индексы столбцов в курсоре
             int costTypeIndex = cursor.getColumnIndex(COLUMN_COST_TYPE);
@@ -63,6 +66,13 @@ public class HistoryCursorAdapter extends CursorAdapter {
             costTextView.setText(cost);
             listCircle.setColor(setCircleColor(costType));
 
+            //Устанавливаем иконку в соответствии с типом записи
+            switch (costType){
+                case "Заправка": imageViewType.setBackgroundResource(R.drawable.car_fuel); break;
+                case "Сервис": imageViewType.setBackgroundResource(R.drawable.car_service); break;
+                case "ТО": imageViewType.setBackgroundResource(R.drawable.car_to); break;
+                case "Разное": imageViewType.setBackgroundResource(R.drawable.car_other); break;
+            }
         }
     }
 
@@ -72,7 +82,7 @@ public class HistoryCursorAdapter extends CursorAdapter {
             case "Заправка": color = R.color.colorFuel; break;
             case "Сервис": color = R.color.colorService; break;
             case "ТО": color = R.color.colorTO; break;
-            case "Другое": color = R.color.colorOther; break;
+            case "Разное": color = R.color.colorOther; break;
             default: color = R.color.colorDefault;
         }
         return ContextCompat.getColor(context, color);

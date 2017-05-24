@@ -5,15 +5,27 @@
     android:orientation="horizontal"
     android:padding="@dimen/activity_margin">
 
-    <TextView
-        android:id="@+id/colorCircle"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/circle"
-        android:gravity="center"
-        android:padding="16dp"
-        android:textSize="16sp" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/colorCircle"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageViewType"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/cost_type" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,28 +33,32 @@
         android:layout_marginStart="16dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/listCostType"
-            style="@style/ListView_Elements_Style"
-            android:fontFamily="sans-serif-medium"
-            android:textAppearance="?android:textAppearanceMedium" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <TextView
-                style="@style/ListView_Elements_Style"
+                android:id="@+id/listCostType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/text_color"
                 android:layout_weight="1"
-                android:text="@string/date_textview" />
+                android:fontFamily="sans-serif-medium"
+                android:textAppearance="?android:textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/listDate"
                 style="@style/ListView_Elements_Style"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:textColor="#AEB6BD" />
+                android:textColor="@color/colorSmallText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <TextView
                 style="@style/ListView_Elements_Style"
@@ -54,7 +70,7 @@
                 style="@style/ListView_Elements_Style"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:textColor="#AEB6BD" />
+                android:textColor="@color/colorSmallText" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

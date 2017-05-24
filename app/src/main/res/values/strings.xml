@@ -18,7 +18,7 @@
     <string name="add">Добавить</string>
     <string name="safe">Сохранить</string>
 
-    <string name="nav_main_title">История</string>
+    <string name="nav_main_title">История расходов</string>
     <string name="nav_stat_title">Статистика</string>
     <string name="nav_info_title">О приложении</string>
 
@@ -37,7 +37,7 @@
     <string name="editor_update_entry_successful">Запись отредактированна</string>
 
     <string name="date_textview">"Дата "</string>
-    <string name="costValue_textview">"Потрачено "</string>
+    <string name="costValue_textview">"Сумма "</string>
     <string name="delete_dialog_msg">Очистить всю историю?</string>
     <string name="delete_history_yes">Да</string>
     <string name="delete_history_no">Нет</string>
