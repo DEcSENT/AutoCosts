@@ -48,6 +48,6 @@
     <string name="unsaved_changes_dialog_msg">Выйти без сохранения изменений?</string>
 
     <string name="editor_small_text_km">км</string>
-    <string name="editor_small_text_rubl">₽</string>
+    <string name="editor_small_text_rubl">р</string>
     <string name="editor_small_text_litr">л</string>
 </resources>

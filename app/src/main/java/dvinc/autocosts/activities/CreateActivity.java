@@ -6,8 +6,10 @@ package dvinc.autocosts.activities;
  */
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +29,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -41,6 +46,7 @@ import java.io.IOException;
 
 import dvinc.autocosts.R;
 import dvinc.autocosts.database.Contract.*;
+import dvinc.autocosts.utility.DateDialog;
 
 import static dvinc.autocosts.database.Contract.CostEntry.*;
 
@@ -58,16 +64,17 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
 
     /* Объявление полей для ввода пользовательской информации.*/
     private Spinner mCostTypeSpinner;
-    private EditText mDateEditText;
+    public  EditText mDateEditText;
     private EditText mMileageEditText;
     private EditText mCostValueEditText;
     private EditText mCostVolumeEditText;
     private EditText mCommentEditText;
     private ImageView mPhotoImageView;
 
+    /** Макет со значением объема.*/
     private LinearLayout mLLcostVolume;
     
-    /** Переменная для хранения выранной категории.*/
+    /** Переменная для хранения выбранной категории.*/
     private String mCostType;
 
     /** Переменная для хранения строки с фото в формате басе64.*/
@@ -82,6 +89,7 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
     /** Флаг, который отслеживает была ли запись отредактирована. */
     private boolean mEntryHasChanged = false;
 
+    /** Значение типа рахода по умолчанию. */
     private String CostTypeDefault;
 
     /**
@@ -117,10 +125,12 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
         mLLcostVolume.setVisibility(View.INVISIBLE);
         mLLcostVolume.setVisibility(View.GONE);
 
-        /*Инициализация кнопок.*/
+        /* Инициализация кнопок.*/
         mButtonLoadPhoto = (Button) findViewById(R.id.buttonLoadPhoto);
         mButtonSaveEntry = (Button) findViewById(R.id.buttonSaveEntry);
 
+        /* Скрываем клавиатуру при старте приложения. */
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         // Получаем интент из места, откуда открыли эту активность.
         Intent intent = getIntent();
@@ -149,7 +159,16 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
         mCommentEditText.setOnTouchListener(mTouchListener);
         mPhotoImageView.setOnTouchListener(mTouchListener);
 
-        //TODO: datepicker and fokuslistener here
+        mDateEditText.setKeyListener(null);
+        mDateEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View view, boolean hasfocus) {
+                if (hasfocus) {
+                    DateDialog dialog = new DateDialog(view);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    dialog.show(ft, "DatePicker");
+                }
+            }
+        });
 
         // Устанавливаем спиннер для выбора типа расхода.
         setupCostTypeSpinner();
@@ -169,6 +188,12 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                         mCostType = selection;
+                    if (selection.equals(COST_TYPE_FUEL)) {
+                        mLLcostVolume.setVisibility(View.VISIBLE);
+                    } else {
+                        mLLcostVolume.setVisibility(View.INVISIBLE);
+                        mLLcostVolume.setVisibility(View.GONE);
+                    }
                 }
             }
             @Override

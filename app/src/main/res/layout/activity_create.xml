@@ -1,145 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="@dimen/activity_margin">
 
     <LinearLayout
         style="@style/LL_horizontal"
         android:orientation="vertical">
-    <LinearLayout
-        style="@style/LL_horizontal">
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/cost_type"/>
-        <Spinner
-            android:id="@+id/spinnerCostType"
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/Create_Activity_Elements"
+                android:text="@string/cost_type" />
+
+            <Spinner
+                android:id="@+id/spinnerCostType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LL_horizontal"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                style="@style/Create_Activity_Elements"
+                android:text="@string/date" />
+
+            <EditText
+                android:id="@+id/editDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:hint="@string/date"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/Create_Activity_Elements"
+                android:text="@string/mileage" />
+
+            <RelativeLayout style="@style/RelativeLayoutStyle">
+
+                <EditText
+                    android:id="@+id/editMileage"
+                    style="@style/InputNumberStyle"
+                    android:hint="@string/mileage" />
+
+                <TextView
+                    style="@style/Create_Activity_Elements"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/editor_small_text_km" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/Create_Activity_Elements"
+                android:text="@string/cost_value" />
+
+            <RelativeLayout style="@style/RelativeLayoutStyle">
+
+                <EditText
+                    android:id="@+id/editCostValue"
+                    style="@style/InputNumberStyle"
+                    android:hint="@string/cost_value" />
+
+                <TextView
+                    style="@style/Create_Activity_Elements"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/editor_small_text_rubl" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL_cost_volume"
+            style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/Create_Activity_Elements"
+                android:text="@string/cost_volume" />
+
+            <RelativeLayout style="@style/RelativeLayoutStyle">
+
+                <EditText
+                    android:id="@+id/editCostVolume"
+                    style="@style/InputNumberStyle"
+                    android:hint="@string/cost_volume" />
+
+                <TextView
+                    style="@style/Create_Activity_Elements"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/editor_small_text_litr" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/Create_Activity_Elements"
+                android:text="@string/comment" />
+
+            <EditText
+                android:id="@+id/editComment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/comment"
+                android:inputType="textCapSentences" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/Create_Activity_Elements"
+                android:text="@string/photo" />
+
+            <Button
+                android:id="@+id/buttonLoadPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="loadImageClick"
+                android:text="@string/add" />
+        </LinearLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </Spinner>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout
-        style="@style/LL_horizontal">
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/date" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/editDate"
-            android:hint="@string/date"/>
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageViewPhotoLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/photo"
+                android:layout_gravity="center" />
+        </FrameLayout>
 
-    <LinearLayout
-        style="@style/LL_horizontal">
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/mileage"
-            />
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/editMileage"
-            android:hint="@string/mileage"
-            android:inputType="number"
-            android:layout_weight="5"/>
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/editor_small_text_km"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LL_horizontal">
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/cost_value" />
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/editCostValue"
-            android:hint="@string/cost_value"
-            android:inputType="numberDecimal"
-            android:layout_weight="5"/>
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/editor_small_text_rubl"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LL_horizontal"
-        android:id="@+id/LL_cost_volume">
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/cost_volume" />
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/editCostVolume"
-            android:hint="@string/cost_volume"
-            android:inputType="number"
-            android:layout_weight="5"/>
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/editor_small_text_litr"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LL_horizontal">
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/comment"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/editComment"
-            android:hint="@string/comment"
-            android:inputType="textCapSentences"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LL_horizontal">
-        <TextView
-            style="@style/Create_Activity_Elements"
-            android:text="@string/photo"/>
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:id="@+id/buttonLoadPhoto"
-            android:onClick="loadImageClick"/>
-    </LinearLayout>
-
-    <FrameLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:contentDescription="@string/photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewPhotoLoad"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"/>
-    </FrameLayout>
-
-        <Button
-            android:text="@string/safe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/buttonSaveEntry"
-            android:onClick="onClickSafe"
-            android:background="@color/colorService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            />
+            android:background="@color/colorService"
+            android:onClick="onClickSafe"
+            android:text="@string/safe" />
     </LinearLayout>
 </ScrollView>
