@@ -15,7 +15,7 @@
             android:text="@string/cost_type"/>
         <Spinner
             android:id="@+id/spinnerCostType"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
         </Spinner>
     </LinearLayout>
@@ -26,7 +26,7 @@
             style="@style/Create_Activity_Elements"
             android:text="@string/date" />
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/editDate"
             android:hint="@string/date"/>
@@ -36,26 +36,41 @@
         style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
-            android:text="@string/mileage"/>
+            android:text="@string/mileage"
+            />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/editMileage"
             android:hint="@string/mileage"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:layout_weight="5"/>
+        <TextView
+            style="@style/Create_Activity_Elements"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/editor_small_text_km"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
         style="@style/LL_horizontal">
         <TextView
             style="@style/Create_Activity_Elements"
-            android:text="@string/cost_value"/>
+            android:text="@string/cost_value" />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/editCostValue"
             android:hint="@string/cost_value"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:layout_weight="5"/>
+        <TextView
+            style="@style/Create_Activity_Elements"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/editor_small_text_rubl"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -63,13 +78,18 @@
         android:id="@+id/LL_cost_volume">
         <TextView
             style="@style/Create_Activity_Elements"
-            android:text="@string/cost_volume"/>
+            android:text="@string/cost_volume" />
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/editCostVolume"
             android:hint="@string/cost_volume"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:layout_weight="5"/>
+        <TextView
+            style="@style/Create_Activity_Elements"
+            android:text="@string/editor_small_text_litr"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -78,10 +98,11 @@
             style="@style/Create_Activity_Elements"
             android:text="@string/comment"/>
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/editComment"
-            android:hint="@string/comment"/>
+            android:hint="@string/comment"
+            android:inputType="textCapSentences"/>
     </LinearLayout>
 
     <LinearLayout
