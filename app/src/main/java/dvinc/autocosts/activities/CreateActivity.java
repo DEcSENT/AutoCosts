@@ -106,7 +106,7 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
+        setContentView(R.layout.activity_create_2nd);
 
         CostTypeDefault = getResources().getString(R.string.costType_none);
 

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin">
+
+    <LinearLayout
+        style="@style/LL_horizontal"
+        android:orientation="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/CategoryStyle"
+                android:gravity="center|start"
+                android:text="@string/cost_type" />
+
+            <Spinner
+                android:id="@+id/spinnerCostType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/CategoryStyle"
+                android:gravity="center|start"
+                android:text="@string/date" />
+
+            <EditText
+                android:id="@+id/editDate"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/date"
+                android:inputType="date" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/CategoryStyle"
+                android:gravity="center|start"
+                android:text="@string/mileage" />
+
+            <EditText
+                android:id="@+id/editMileage"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/mileage"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/CategoryStyle"
+                android:gravity="center|start"
+                android:text="@string/cost_value" />
+
+            <EditText
+                android:id="@+id/editCostValue"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/cost_value"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL_cost_volume"
+            style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/CategoryStyle"
+                android:gravity="center|start"
+                android:text="@string/cost_volume" />
+
+            <EditText
+                android:id="@+id/editCostVolume"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/cost_volume"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/CategoryStyle"
+                android:gravity="center|start"
+                android:text="@string/comment" />
+
+            <EditText
+                android:id="@+id/editComment"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/comment"
+                android:inputType="textCapWords" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LL_horizontal">
+
+            <TextView
+                style="@style/CategoryStyle"
+                android:gravity="center|start"
+                android:text="@string/photo" />
+
+            <Button
+                android:id="@+id/buttonLoadPhoto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:onClick="loadImageClick"
+                android:text="@string/add" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageViewPhotoLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/photo"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/buttonSaveEntry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorService"
+            android:onClick="onClickSafe"
+            android:text="@string/safe" />
+    </LinearLayout>
+</ScrollView>
