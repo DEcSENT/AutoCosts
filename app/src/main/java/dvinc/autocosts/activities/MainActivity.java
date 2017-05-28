@@ -76,14 +76,11 @@ public class MainActivity extends AppCompatActivity
         historyCursorAdapter = new HistoryCursorAdapter(this, null);
         listView.setAdapter(historyCursorAdapter);
 
-        /* Установка слушателя для нажатия на выбранную запись с последующим переходом в активность для редактирования.*/
+        /* Установка слушателя для нажатия на выбранную запись с последующим вызовом диалога выбора действия.*/
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, CreateActivity.class);
-                Uri currentCostUri = ContentUris.withAppendedId(CostEntry.CONTENT_URI, id);
-                intent.setData(currentCostUri);
-                startActivity(intent);
+                showSelectionDialog(id);
             }
         });
 
@@ -102,7 +99,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -172,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete_history_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                deleteAllHistory();
+                deleteFromHistory(0);
             }
         });
         builder.setNegativeButton(R.string.delete_history_no, new DialogInterface.OnClickListener() {
@@ -187,12 +183,44 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Метод для удаления всех записей из истории.
+     * Общий метод для удаления всей истории или одной выбранной записи.
+     * @param elementID - номер записи в истории. Если равен 0, то вся история будет удалена.
+     * Если elementID не равен 0, то будет удалена одна запись с этим id.
      */
-    private void deleteAllHistory() {
-        int rowsDeleted = getContentResolver().delete(CostEntry.CONTENT_URI, null, null);
-        Toast.makeText(this, "Удалено записей из истории: " +
-                rowsDeleted, Toast.LENGTH_LONG)
-                .show();
+    private void deleteFromHistory(final long elementID){
+        String message = "";
+        if(elementID == 0){
+            int rowsDeleted = getContentResolver().delete(CostEntry.CONTENT_URI, null, null);
+            message = "Удалено записей из истории: " + rowsDeleted;
+        } else{
+            Uri currentCostUri = ContentUris.withAppendedId(CostEntry.CONTENT_URI, elementID);
+            getContentResolver().delete(currentCostUri, null, null);
+            message = "Запись удалена";
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Диалог для выбора действия по клику на запись в истории.
+     * @param elementID - номер записи для удаления.
+     */
+    private void showSelectionDialog(final long elementID){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.choose_action).setIcon(R.drawable.car_other);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteFromHistory(elementID);
+            }
+        });
+        builder.setNegativeButton(R.string.change_entry, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(MainActivity.this, CreateActivity.class);
+                Uri currentCostUri = ContentUris.withAppendedId(CostEntry.CONTENT_URI, elementID);
+                intent.setData(currentCostUri);
+                startActivity(intent);
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

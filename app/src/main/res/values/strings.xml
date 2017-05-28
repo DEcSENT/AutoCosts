@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">AutoCosts</string>
+    <string name="DV_Inc">by DV Inc.</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -24,7 +25,7 @@
     <string name="nav_info_title">О приложении</string>
 
     <string name="editor_title_new">Новая запись</string>
-    <string name="editor_title_edit_current">Редактирование записи</string>
+    <string name="editor_title_edit_current">Редактирование</string>
     
     <string name="costType_none">Не выбрано</string>
     <string name="costType_oil">Заправка</string>
@@ -50,4 +51,7 @@
     <string name="editor_small_text_km">км</string>
     <string name="editor_small_text_rubl">р</string>
     <string name="editor_small_text_litr">л</string>
+
+    <string name="choose_action">Выбор действия</string>
+    <string name="change_entry">Изменить</string>
 </resources>
