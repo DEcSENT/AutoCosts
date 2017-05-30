@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_margin">
+
+    <LinearLayout style="@style/LL_horizontal">
+
+        <TextView
+            style="@style/StatCategoryStyle"
+            android:gravity="center|start"
+            android:text="@string/stat_summary" />
+
+        <TextView
+            android:id="@+id/textViewSummary"
+            style="@style/StatFieldStyle"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LL_horizontal">
+
+        <TextView
+            style="@style/StatCategoryStyle"
+            android:gravity="center|start"
+            android:text="@string/stat_fuel" />
+
+        <TextView
+            android:id="@+id/textViewFuel"
+            style="@style/StatFieldStyle"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LL_horizontal">
+
+        <TextView
+            style="@style/StatCategoryStyle"
+            android:gravity="center|start"
+            android:text="@string/stat_service" />
+
+        <TextView
+            android:id="@+id/textViewServise"
+            style="@style/StatFieldStyle"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LL_horizontal">
+
+        <TextView
+            style="@style/StatCategoryStyle"
+            android:gravity="center|start"
+            android:text="@string/stat_TI" />
+
+        <TextView
+            android:id="@+id/textViewTI"
+            style="@style/StatFieldStyle"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LL_horizontal">
+
+        <TextView
+            style="@style/StatCategoryStyle"
+            android:gravity="center|start"
+            android:text="@string/stat_other" />
+
+        <TextView
+            android:id="@+id/textViewOther"
+            style="@style/StatFieldStyle"
+            android:gravity="center" />
+    </LinearLayout>
+</LinearLayout>

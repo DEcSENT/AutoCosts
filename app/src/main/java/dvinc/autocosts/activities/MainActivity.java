@@ -120,9 +120,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_main) {
 
         } else if (id == R.id.nav_stat) {
-
+            Intent intent = new Intent(MainActivity.this, StatisticActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_info) {
-
+            Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+            startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity
      * Если elementID не равен 0, то будет удалена одна запись с этим id.
      */
     private void deleteFromHistory(final long elementID){
-        String message = "";
+        String message;
         if(elementID == 0){
             int rowsDeleted = getContentResolver().delete(CostEntry.CONTENT_URI, null, null);
             message = "Удалено записей из истории: " + rowsDeleted;

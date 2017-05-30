@@ -22,6 +22,17 @@
             android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity
+            android:name=".activities.InfoActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:label="@string/nav_info_title"
+            android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+        <activity
+            android:name=".activities.StatisticActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:label="@string/nav_stat_title">
+        </activity>
         <provider
             android:name=".database.ContentProvider"
             android:authorities="dvinc.autocosts"

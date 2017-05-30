@@ -54,4 +54,12 @@
 
     <string name="choose_action">Выбор действия</string>
     <string name="change_entry">Изменить</string>
+
+    <string name="about">\nПриложение для учета расходов на автомобиль. \n by DV</string>
+
+    <string name="stat_summary">Всего израсходовано</string>
+    <string name="stat_fuel">На заправки</string>
+    <string name="stat_service">На сервис</string>
+    <string name="stat_TI">На TO</string>
+    <string name="stat_other">Другие траты</string>
 </resources>
