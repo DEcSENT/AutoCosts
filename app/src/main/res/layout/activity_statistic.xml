@@ -68,4 +68,18 @@
             style="@style/StatFieldStyle"
             android:gravity="center" />
     </LinearLayout>
+
+    <LinearLayout style="@style/LL_horizontal"
+        android:paddingTop="10dp">
+
+        <TextView
+            style="@style/StatCategoryStyle"
+            android:gravity="center|start"
+            android:text="@string/stat_average_fuel" />
+
+        <TextView
+            android:id="@+id/textViewAverageFuel"
+            style="@style/StatFieldStyle"
+            android:gravity="center" />
+    </LinearLayout>
 </LinearLayout>

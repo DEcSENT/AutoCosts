@@ -52,7 +52,7 @@ public class ContentProvider extends android.content.ContentProvider {
             case ALL_HISTORY:
                 /* Примечение: здесь курсор для всей истории сортируется в обратном порядке, для отображения последних записей вверху истории. */
                 cursor = database.query(CostEntry.TABLE_NAME, projection, selection, selectionArgs,
-                        null, null, CostEntry._ID + " DESC");
+                        null, null, null /*CostEntry._ID + " DESC"*/);
                 break;
             case HISTORY_ID:
                 selection = CostEntry._ID + "=?";

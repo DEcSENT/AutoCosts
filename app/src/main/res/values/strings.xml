@@ -62,4 +62,6 @@
     <string name="stat_service">На сервис</string>
     <string name="stat_TI">На TO</string>
     <string name="stat_other">Другие траты</string>
+    <string name="stat_average_fuel">Средний расход топлива</string>
+    <string name="stat_average_fuel_km">"л на 100км"</string>
 </resources>
