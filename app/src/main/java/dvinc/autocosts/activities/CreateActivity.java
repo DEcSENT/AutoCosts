@@ -264,8 +264,19 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
      * Метод для кнопки сохранения записи в базу данных.
      */
     public void onClickSafe(View view) {
-        saveEntry();
-        finish();
+        if (mCostType.equals(CostTypeDefault)){
+            Toast.makeText(this, getString(R.string.error_category_message),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!checkEditTextForEmpty()){
+            Toast.makeText(this, getString(R.string.error_textfield_message),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            saveEntry();
+            finish();
+        }
     }
 
     @Override
@@ -492,5 +503,25 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
             width = (int) (height * bitmapRatio);
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    /**
+     * Метод для проверки важных незаполненных полей.
+     * Для категории Заправка идут отдельные проверки т.к. пробег и объем топлива нужны при расчетах в статистике.
+     * @return - возвращает false, если какое-то важное поле не заполнено. И true если все проверки пройдены успешно.
+     */
+    private boolean checkEditTextForEmpty(){
+        if (mCostType.equals("Заправка") & mMileageEditText.getText().toString().trim().equals("")){
+            mMileageEditText.setError(getString(R.string.error_textfield_message));
+            return false;
+        } else if (mCostValueEditText.getText().toString().trim().equals("")){
+            mCostValueEditText.setError(getString(R.string.error_textfield_message));
+            return false;
+        } else if (mCostType.equals("Заправка") & mCostVolumeEditText.getText().toString().trim().equals("")){
+            mCostVolumeEditText.setError(getString(R.string.error_textfield_message));
+            return false;
+        } else {
+            return true;
+        }
     }
 }

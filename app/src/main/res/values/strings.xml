@@ -8,7 +8,7 @@
     <string name="action_delete_all_history">Очистить историю</string>
     <string name="empty_history_text">Нет записей в истории</string>
     <string name="empty_history_start">Начните с добавления новой записи</string>
-    <string name="cost_type">Тип расхода</string>
+    <string name="cost_type">Категория</string>
     <string name="date">Дата </string>
     <string name="mileage">Текущий пробег</string>
     <string name="cost_value">Сумма расхода</string>
@@ -64,4 +64,7 @@
     <string name="stat_other">Другие траты</string>
     <string name="stat_average_fuel">Средний расход топлива</string>
     <string name="stat_average_fuel_km">"л на 100км"</string>
+
+    <string name="error_textfield_message">Обязательное поле</string>
+    <string name="error_category_message">Нужно выбрать категорию</string>
 </resources>

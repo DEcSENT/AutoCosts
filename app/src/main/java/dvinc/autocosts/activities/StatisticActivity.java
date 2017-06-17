@@ -146,9 +146,14 @@ public class StatisticActivity extends AppCompatActivity {
 
             /* Считаем значение среднего расхода на 100км. пути.*/
             total = ((summaryFuel - lastFuelValue) * 100) / (mileageArray[count - 1] - mileageArray[0]);
+            String text;
 
-            /* Формируем строку, отредактировав полученные данные (до двух знаков, запятую меняем на точку).*/
-            String text = ((new DecimalFormat("#0.00").format(total)).replace(',', '.')) + getResources().getString(R.string.stat_average_fuel_km);
+            if (Float.isNaN(total)) {
+                text = "Недостаточно данных";
+            } else {
+                /* Формируем строку, отредактировав полученные данные (до двух знаков, запятую меняем на точку).*/
+                text = ((new DecimalFormat("#0.00").format(total)).replace(',', '.')) + getResources().getString(R.string.stat_average_fuel_km);
+            }
             mTextViewAverageFuel.setText(text);
             cursor.close();
         }
