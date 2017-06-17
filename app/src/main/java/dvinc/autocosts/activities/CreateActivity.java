@@ -5,6 +5,7 @@ package dvinc.autocosts.activities;
  * 28.04.2017
  */
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
@@ -19,7 +20,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -39,7 +39,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import dvinc.autocosts.R;
 import dvinc.autocosts.database.Contract.*;
@@ -67,6 +68,9 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mCostVolumeEditText;
     private EditText mCommentEditText;
     private ImageView mPhotoImageView;
+
+    private Bitmap mBitMap;
+    private static final int REQUEST_CODE = 1;
 
     /** Макет со значением объема.*/
     private LinearLayout mLLcostVolume;
@@ -458,31 +462,30 @@ public class CreateActivity extends AppCompatActivity implements LoaderManager.L
      * Метод для кнопки загрузки фотографии.
      */
     public void loadImageClick(View view) {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, REQUEST_CODE);
     }
-
-    static final int GALLERY_REQUEST = 1;
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        Bitmap bitmap = null;
-        ImageView imageViewLoad = (ImageView) findViewById(R.id.imageViewPhotoLoad);
-        switch (requestCode) {
-            case GALLERY_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    imageViewLoad.setImageBitmap(bitmap);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        InputStream stream;
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK)
+            try {
+                // recyle unused bitmaps
+                if (mBitMap != null) {
+                    mBitMap.recycle();
                 }
+                stream = getContentResolver().openInputStream(data.getData());
+                mBitMap = BitmapFactory.decodeStream(stream);
+
+                mPhotoImageView.setImageBitmap(mBitMap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-    }
 
     /**
      * Метод для изменения размера изображения.
